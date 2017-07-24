@@ -1,0 +1,41 @@
+﻿@model IList<GithubIssues.Models.IssueModel>
+@{ 
+    int count = 0;
+}
+@foreach (var issue in Model)
+{
+    <div style="border:1px solid black; padding: 0px 10px 0px 10px; word-wrap:break-word">
+        <div>
+            <h4>
+                <span style="font-weight: bold">Title: </span>@issue.Title
+            </h4>
+            <h4>
+                <span style="font-weight: bold">User Login: </span>@issue.UserLogin
+            </h4>
+            <h4>
+                <span style="font-weight: bold">Assignee Login: </span>@issue.AssigneeLogin
+            </h4>
+            <h4>
+                <span style="font-weight: bold;">Body </span>
+                <span class="glyphicon glyphicon-plus" data-id="@count" style="font-size: 14px"></span>
+            </h4>
+        </div>
+        <div id="body-@count" style="display:none;">
+            <pre><code>@issue.Body</code></pre>
+        </div>
+    </div>
+    count++;
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(".glyphicon").click(function () {
+        if ($(this).hasClass('glyphicon-plus')) {
+            $("#body-" + $(this).data('id')).show();
+            $(this).removeClass("glyphicon-plus").addClass("glyphicon-minus");
+        } else {
+            $("#body-" + $(this).data('id')).hide();
+            $(this).removeClass("glyphicon-minus").addClass("glyphicon-plus");
+        }        
+    });
+</script>
